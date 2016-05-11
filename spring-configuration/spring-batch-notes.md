@@ -14,7 +14,7 @@ each step can have either a tasklet or a reader/writer or reader/processor/write
 The syntax for creating a tasklet is:
 
 
-// Define the tasklet
+	/** Define the tasklet */
 	package com.practice.batch.tasklet;
 
 	public class MyTasklet implements Tasklet {
