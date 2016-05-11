@@ -8,11 +8,13 @@ public class MementoPatternEx {
 		o.setState("First State");
 
 		CareTaker c = new CareTaker();
-		c.SaveMemento(o.OriginatorMemento());
+		c.SaveMemento(o.OriginatorMemento(),"origin", 1);
 
 		o.setState("Second State");
+		c.SaveMemento(o.OriginatorMemento(),"origin", 2);
 
-		o.Revert(c.RetrieveMemento());
+		o.setState("Third State");
+		o.Revert(c.RetrieveMemento("origin", 1));
 
 	}
 }
