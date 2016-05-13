@@ -60,7 +60,7 @@
 	<!-- Spring Batch related -->
 
     	<bean id="jobRegistry" class="org.springframework.batch.core.configuration.support.MapJobRegistry" />
- 
+
 		<batch:job-repository id="jobRepository" data-source="dataSource" transaction-manager="transactionManager"
 			isolation-level-for-create="DEFAULT" />
 
@@ -78,6 +78,16 @@
 			<property name="jobRegistry" ref="jobRegistry" />
 			<property name="jobLauncher" ref="jobLauncher" />
 		</bean>
+
+		<bean id="myTasklet" class="com.practice.spring.batch.tasklet.MyTasklet" />
+
+		<batch:job id="practiceJob">
+			<batch:step id="firstStep">
+				<batch:tasklet transaction-manager="transactionManager" ref="myTasklet">
+
+				</batch:tasklet>
+			</batch:step>
+	</batch:job>
 	<!-- End: Spring Batch related -->
 
 	<bean id="username" class="com.practice.spring.SampleBean">
