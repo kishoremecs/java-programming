@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="description" content="D3byEX 10.5" />
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<script src="http://d3js.org/d3.v3.min.js"></script>
+		<script>
+		
+		var x = d3.scale.linear().range([0, 500]),
+			y = d3.scale.linear().range([500, 0]);
+
+		var area = d3.svg.area()
+			.y0(100)
+			.x(function(d) { return x(d.x); })
+			.y1(function(d) { return y(d.y); });
+
+			var svg = d3.select('body').append('svg')
+				.attr('width', 500)
+				.attr('height', 500);
+
+			//var data = [{x: 200, y : 200 }, {x: 240, y: 120}, {x: 20, y : 120 }, {x: 240, y: 60}];
+
+			var data = [{x: 10, y : 120 }, {x: 10, y: 120}, {x: 40, y: 140}, {x: 50, y: 150}, {x: 60, y: 120}];
+
+			console.log('interpolate: ' + d3.svg.area().interpolate());
+
+			x.domain(d3.extent(data, function(d) { return d.x; }));
+			y.domain([0, d3.max(data, function(d) { return d.y; })]);
+
+			console.log('line: ' + area(data));
+			svg.append('path')
+			.attr({
+				'd': area(data),
+                fill: 'yellow',
+                stroke: '#ccc',
+                'stroke-width': 2,
+				'opacity': 0.5
+			});
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="description" content="D3byEX 10.5" />
+    <meta charset="utf-8">
+</head>
+<body>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script>
+        var url = '/examples/example2/cluster_data.json';//'https://gist.githubusercontent.com/d3byex/25129228aa50c30ef01f/raw/2f8664d0eb75ef606f412f9647116954ff0af41d/radial.json'; //url='https://gist.githubusercontent.com/d3byex/25129228aa50c30ef01f/raw/ddc1d7cf560f8fff84dd9005e5bdbdd43b39a91f/flare.json';
+        d3.json(url, function(error, data) {
+            var width = 500,
+                height = 500,
+                nodeRadius = 4.5;
+
+            var svg = d3.select('body')
+                .append('svg')
+                .attr({
+                    width: width,
+                    height: height
+                });
+
+            var radius = width / 2;
+            var mainGroup = svg.append('g')
+                .attr("transform", "translate(" + radius + "," + radius + ")");
+
+            var cluster = d3.layout.cluster()
+                .size([360, radius - 150]);
+
+            var nodes = cluster.nodes(data);
+			console.log('Nodes : ' + nodes);
+            var links = cluster.links(nodes);
+			console.log('Links : ' + links);
+
+            var diagonal = d3.svg.diagonal.radial()
+                .projection(function(d) {
+                    return [
+                        d.y,
+                        d.x / 180 * Math.PI
+                    ];
+                });
+
+            mainGroup.selectAll('path')
+                .data(links)
+                .enter()
+                .append('path')
+                .attr({
+                    'd': diagonal,
+                    fill: 'none',
+                    stroke: '#ccc',
+                    'stroke-width': 2
+                });
+
+            var nodeGroups = mainGroup.selectAll("g")
+                .data(nodes)
+                .enter()
+                .append("g")
+                .attr("transform", function(d) {
+                    //return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")";
+					return "rotate(" + (d.x - 90) + ")translate(" + d.y + ")";
+                });
+
+            nodeGroups.append("circle")
+                .attr({
+                    r: nodeRadius,
+                    fill: '#fff',
+                    stroke: 'steelblue',
+                    'stroke-width': 3
+                });
+
+            nodeGroups.append("text")
+                .attr({
+                        dy: ".31em",
+                        'text-anchor': function(d) {
+                            return d.x < 180 ? "start" : "end";
+                        },
+                        'transform': function(d) {
+                            return d.x < 180 ? "translate(8)" : "rotate(180)translate(-8)";
+                        }
+                    })
+                    .style('font', '12px sans-serif')
+                .text(function(d) { return d.name; });
+        });
+    </script>
+</body>
+</html>

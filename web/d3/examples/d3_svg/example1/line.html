@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="description" content="D3byEX 10.5" />
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<script src="http://d3js.org/d3.v3.min.js"></script>
+		<script>
+		
+		var x = d3.scale.linear().range([0, 500]),
+			y = d3.scale.linear().range([500, 0]);
+
+		var line = d3.svg.line()
+			.x(function(d) { return x(d.x); })
+			.y(function(d) { return y(d.y); });
+			var svg = d3.select('body').append('svg')
+				.attr('width', 500)
+				.attr('height', 500);
+			//var data = [{x: 200, y : 200 }, {x: 240, y: 120}, {x: 20, y : 120 }, {x: 240, y: 60}];
+			var data = [{x: 0, y : 20 }, {x: 240, y: 120}];
+			console.log('interpolate: ' + d3.svg.line().interpolate());
+			x.domain(d3.extent(data, function(d) { return d.x; }));
+			y.domain([0, d3.max(data, function(d) { return d.y; })]);
+			console.log('line: ' + line(data));
+			svg.append('path')
+			.attr({
+				'd': line(data),
+                fill: 'red',
+                stroke: '#ccc',
+                'stroke-width': 2
+			});
+
+		</script>
+	</body>
+</html>

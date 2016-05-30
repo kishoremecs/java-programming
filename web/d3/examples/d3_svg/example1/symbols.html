@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="description" content="D3byEX 10.5" />
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<script src="http://d3js.org/d3.v3.min.js"></script>
+		<script>
+
+		var svg = d3.select('body')
+            .append('svg')
+            .attr({
+                width: 500,
+                height: 250
+            });
+		var data = [1,2,3,4,5];
+		var colors = d3.scale.category10();
+		console.log(d3.svg.symbolTypes);
+        var gs= svg.selectAll('g')
+            .data(data)
+            .enter()
+            .append('g').attr('width', 150);
+
+		gs.append('path').attr({
+                d: d3.svg.symbol().type(function (d) { return "square"; }),
+                transform: function (d, i) {
+                    return 'translate(10,' + (i * 20 + 10) + ')';
+                },
+				fill: function(d, i) {
+					return colors(i);
+				}
+            });
+		var names = ['Kishore', 'Soujanya', 'Ranjith', 'Surekha', 'Raghavendra'];
+		gs.append('text').text(function (d, i) {return names[i]; } ).attr({
+			fill: function (d, i) {return colors(i);},
+			transform: function (d, i) {
+                    return 'translate(30,' + (i * 20 + 10) + ')';
+                },
+		});
+		svg.append('path').attr({
+                d: d3.svg.symbol().type(function (d) { return "square"; }),
+                transform: function (d, i) {
+                    return 'translate(10,' + (i * 20 + 10) + ')';
+                },
+				fill: function(d, i) {
+					return colors(i);
+				}
+            });
+
+		</script>
+	</body>
+</html>

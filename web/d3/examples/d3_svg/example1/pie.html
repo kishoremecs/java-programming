@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="description" content="D3byEX 10.5" />
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<script src="http://d3js.org/d3.v3.min.js"></script>
+		<script>
+
+		var data = [21, 32, 35, 64, 83];
+		var pieSegments = d3.layout.pie()(data);
+
+		var arcGenerator = d3.svg.arc()
+			.innerRadius(40)
+			.outerRadius(100)
+			.startAngle(function(d) {
+			return d.startAngle;
+			})
+			.endAngle(function(d) {
+			return d.endAngle;
+			});
+
+			var colors = d3.scale.category10();
+
+			var svg = d3.select('body').append('svg')
+				.attr('width', 500)
+				.attr('height', 500);
+
+			//var data = [{x: 200, y : 200 }, {x: 240, y: 120}, {x: 20, y : 120 }, {x: 240, y: 60}];
+
+			//var data = [{x: 10, y : 120 }, {x: 10, y: 120}, {x: 40, y: 140}, {x: 50, y: 150}, {x: 60, y: 120}];
+
+			svg.selectAll('path')
+			.data(pieSegments)
+			.enter()
+			.append('path')
+			.attr('d', arcGenerator)
+			.attr('transform', 'translate(100,100)')
+			.style('fill', function(d, i) {
+			return colors(i);
+			});
+
+		</script>
+	</body>
+</html>

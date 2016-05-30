@@ -1,0 +1,7 @@
+D3 Learning Plan:
+Timeframe 5 days.
+
+1. Basic Shapes 
+2. D3 SVG API
+3. D3 Core API
+4. D3 Layouts API
