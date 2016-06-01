@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="description" content="D3byEX 10.5" />
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<script src="http://d3js.org/d3.v3.min.js"></script>
+		<script>
+
+		var source = { x: 500, y: 50 };
+		var targets = [
+		{ x: 100, y: 150 },
+		{ x: 300, y: 150 },
+		{ x: 500, y: 150 },
+		{ x: 700, y: 150 },
+		{ x: 900, y: 150 }
+		];
+
+		var svg = d3.select('body')
+            .append('svg')
+            .attr({
+                width: 1000,
+                height: 250
+            });
+
+		var links = targets.map(function (target) {
+			return { source: source, target: target };
+		});
+
+		var data = [1,2,3,4,5];
+		var colors = d3.scale.category10();
+		console.log(d3.svg.symbolTypes);
+
+		svg.selectAll('path').data(links).enter().append('path').attr({
+                d: d3.svg.diagonal(),
+                fill: 'none',
+				stroke: '#ccc'
+            });
+
+		</script>
+	</body>
+</html>

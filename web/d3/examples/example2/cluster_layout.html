@@ -79,7 +79,7 @@
                         }
                     })
                     .style('font', '12px sans-serif')
-                .text(function(d) { return d.name; });
+                .text(function(d) { if(d.children) { return "";} else { return d.name; } });
         });
     </script>
 </body>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="description" content="D3byEX 8.12" />
+    <meta charset="utf-8">
+</head>
+
+<body>
+<form>
+    <select id="interpolations"></select>
+    <select id="tensions"></select>
+    <br />
+
+    <svg id="graph"></svg>
+</form>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script>
+
+	var svg = d3.select('body').append('svg').attr({ width: 1000, height: 500});
+	var data  = [
+	{ name: 'Kishore', salary: 81000, age: 2 },
+	{ name: 'Raghavendra', salary: 91000, age: 35 },
+	{ name: 'Ranjith', salary: 45000, age: 31 },
+	{ name: 'Suresh', salary: 25000, age: 29 },
+	{ name: 'Kishore', salary: 11000, age: 5 },
+	{ name: 'Raghavendra', salary: 21000, age: 4 },
+	{ name: 'Ranjith', salary: 14000, age: 11 },
+	{ name: 'Suresh', salary: 12500, age: 9 }
+	]
+
+	var values = [];
+	data.forEach(function(d,i) {
+		values.push(d.salary);
+	});
+	console.log(values);
+	var yScale = d3.scale.linear().domain(d3.extent(data, function(d) { return d.salary; })).range([0, 250]);
+	var xScale = d3.scale.linear().domain([0, d3.max(data, function(d) { return d.age;})]).range([0, 1000]);
+
+	var line = d3.svg.line()
+		.interpolate('monotone')
+		.x(function(d) {
+			return xScale(d.age);
+		}).y(function(d) {
+			return yScale(d.salary);
+		});
+	
+	var group = svg.append('g'); 
+	svg.append('path')
+		.attr({
+			d: line(data),
+			fill: 'none',
+			stroke: 'steelblue'
+		});
+	//The data for our line
+ /*var lineData = [ { "x": 1,   "y": 5},  { "x": 20,  "y": 20},
+                  { "x": 40,  "y": 10}, { "x": 60,  "y": 40},
+                  { "x": 80,  "y": 5},  { "x": 100, "y": 60}];
+ 
+ //This is the accessor function we talked about above
+ var lineFunction = d3.svg.line()
+                          .x(function(d) { return d.x; })
+                          .y(function(d) { return d.y; })
+                         .interpolate("step-before");
+
+//The SVG Container
+ var svgContainer = d3.select("body").append("svg")
+                                    .attr("width", 200)
+                                    .attr("height", 200);
+
+//The line SVG Path we draw
+var lineGraph = svgContainer.append("path")
+                            .attr("d", lineFunction(lineData))
+                            .attr("stroke", "steelblue")
+                            .attr("stroke-width", 2)
+                            .attr("fill", "none");*/
+
+</script>
+</body>
+</html>
