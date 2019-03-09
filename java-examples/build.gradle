@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'idea'
 
 repositories {
     mavenCentral()
@@ -9,9 +10,12 @@ dependencies {
 	compile group: 'org.hibernate', name: 'hibernate-core', version: '3.6.7.Final'
 	compile group: 'cglib', name: 'cglib', version: '2.2.2'
     testCompile group: 'junit', name: 'junit', version: '4.+'
+	compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.3'
+	compile group: 'ch.qos.logback', name: 'logback-core', version: '1.2.3'
+	compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.26'
 }
 
-sourceCompatibility = 1.7
+sourceCompatibility = 1.8
 version = '1.0'
 
 uploadArchives {
@@ -20,7 +24,7 @@ uploadArchives {
 	}
 }
 
-task execute(type:JavaExec) {
+/*task execute(type:JavaExec) {
    main = mainClass
    classpath = sourceSets.main.runtimeClasspath
-}
+}*/
