@@ -13,9 +13,12 @@ public class CommaSeparatedNamesMain {
         names.add("Hello");
         names.add("World");
         names.add("in ");
+        names.add(null);
         names.add("functional thinking");
 
-        String s = names.stream().filter(name -> name.length() > 1)
+        String s = names.stream()
+                .filter(name -> name != null)
+                .filter(name -> name.length() > 1)
                 .map(CommaSeparatedNamesMain::capitalize)
                 .collect(Collectors.joining(","));
                 //.reduce((x, y) -> x + "," + y); This also work.
