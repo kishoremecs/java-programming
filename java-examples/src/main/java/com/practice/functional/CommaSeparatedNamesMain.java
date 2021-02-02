@@ -3,6 +3,7 @@ package com.practice.functional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class CommaSeparatedNamesMain {
 
@@ -14,10 +15,11 @@ public class CommaSeparatedNamesMain {
         names.add("in ");
         names.add("functional thinking");
 
-        Optional<String> s = names.stream().filter(name -> name.length() > 1)
+        String s = names.stream().filter(name -> name.length() > 1)
                 .map(CommaSeparatedNamesMain::capitalize)
-                .reduce((x, y) -> x + "," + y);
-        System.out.println(" $$$$ " + s.get());
+                .collect(Collectors.joining(","));
+                //.reduce((x, y) -> x + "," + y); This also work.
+        System.out.println(" $$$$ " + s);
     }
 
     public static String capitalize(String input) {
